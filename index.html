@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for My Cutie 💕</title>
+    <title>Surprise for Arsuu 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #ffe6f2, #ffb3d9, #cc99ff);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Caveat', cursive;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            position: relative;
         }
         .container {
             text-align: center;
@@ -23,15 +23,17 @@
             border-radius: 20px;
             box-shadow: 0 0 15px rgba(255, 153, 204, 0.5);
             border: 2px solid #ff99cc;
+            position: relative;
+            z-index: 1;
         }
         h1 {
             color: #ff3399;
-            font-size: 40px;
+            font-size: 45px;
             text-shadow: 2px 2px #ffd9e6;
         }
         p {
             color: #660033;
-            font-size: 24px;
+            font-size: 28px;
             margin: 15px 0;
         }
         button {
@@ -42,115 +44,140 @@
             margin: 8px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 22px;
             transition: transform 0.2s;
         }
         button:hover {
             background: #ff3399;
             transform: scale(1.1);
         }
-        .heart {
-            position: absolute;
-            font-size: 35px;
-            color: #ff1a8c;
-            animation: float 4s ease-in-out infinite;
-        }
-        .sparkle {
-            position: absolute;
-            font-size: 20px;
-            color: #ffccff;
-            animation: twinkle 2s infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(-50vh) rotate(180deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-        @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
         #surprise {
             display: none;
-            font-size: 60px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        #surprise p {
+            font-size: 65px;
             color: #ff0066;
             text-shadow: 3px 3px #ffccff;
-            animation: bounce 1s infinite;
+            opacity: 0;
+            animation: fadeIn 1s forwards 4s;
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
-        .overlay {
+        .heart {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+            font-size: 40px;
+            color: #ff1a8c;
+        }
+        .circle-heart {
+            animation: circle 3s ease-in-out forwards;
+        }
+        .merge-heart {
+            animation: merge 1s ease-in-out forwards 3s;
+        }
+        @keyframes circle {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--x), var(--y)); }
+        }
+        @keyframes merge {
+            0% { transform: translate(var(--x), var(--y)) scale(1); }
+            100% { transform: translate(0, 0) scale(2); opacity: 0; }
+        }
+        .final-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 100px;
+            color: #ff0066;
+            animation: grow 1s ease-in-out forwards 4s;
+        }
+        @keyframes grow {
+            to { transform: translate(-50%, -50%) scale(1); }
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
     <div class="container" id="quiz">
-        <h1>Hey, My Sweetie! 🌸</h1>
-        <p id="question">Do you know how much I love you?</p>
-        <button onclick="nextQuestion()">Yes, babe! 💕</button>
-        <button onclick="nextQuestion()">Totally! 😘</button>
+        <h1>Hey, My Sweetie Arsuu! 🌸</h1>
+        <p id="question">Do you know how much I love you? 🥰</p>
+        <button id="btn1" onclick="nextQuestion()">Yes 🌟</button>
+        <button id="btn2" onclick="nextQuestion()">Yesssss 😍</button>
     </div>
-    <div class="container" id="surprise">
-        <p>I LOVE YOU SO MUCH ARSU 💖✨</p>
+    <div id="surprise">
+        <p>I LOVE YOU ARSUU! 💖</p>
     </div>
 
     <script>
         let step = 1;
         const questions = [
-            "Do you know how much I love you?",
-            "Do you know that you’re my favorite?",
-            "Can you be mine forever?",
-            "Will you forgive me if I did something wrong?",
-            "Who do you think I like the most?"
+            "Do you know how much I love you? 🥰",
+            "Do you know that you’re my favorite? ",
+            "Will you be mine forever? 💍",
+            "Please don’t leave me? ",
+            "Will you always love me? 💕",
+            "Who do you think I like the most? 😘"
+        ];
+        const answers = [
+            ["Yes 🌟", "Yesssss 😍"],
+            ["Yes ", "Yesssss 💞"],
+            ["No I hate you 😔", "Yessssss 💍"],
+            ["I promise I won’t 🥺", "I swear I won’t 🌸"],
+            ["Yes 💖", "Idk 😸"],
+            ["Me! 🐾", "Me me! 😻"]
         ];
 
         function nextQuestion() {
-            if (step < questions.length - 1) {
+            if (step < questions.length) {
                 document.getElementById("question").innerText = questions[step];
-                step++;
-            } else if (step === questions.length - 1) {
-                document.getElementById("question").innerText = questions[step];
-                document.getElementsByTagName("button")[0].innerText = "Me! 💖";
-                document.getElementsByTagName("button")[1].innerText = "Me me! 😍";
+                document.getElementById("btn1").innerText = answers[step][0];
+                document.getElementById("btn2").innerText = answers[step][1];
                 step++;
             } else {
                 document.getElementById("quiz").style.display = "none";
                 document.getElementById("surprise").style.display = "block";
-                startEffects();
+                startHeartAnimation();
             }
         }
 
-        function startEffects() {
-            // Floating hearts
-            setInterval(() => {
-                const heart = document.createElement("span");
-                heart.classList.add("heart");
-                heart.innerHTML = "💖";
-                heart.style.left = Math.random() * 100 + "vw";
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }, 150);
+        function startHeartAnimation() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const radius = 100;
+            const heartCount = 12;
 
-            // Sparkles
-            setInterval(() => {
-                const sparkle = document.createElement("span");
-                sparkle.classList.add("sparkle");
-                sparkle.innerHTML = "✨";
-                sparkle.style.left = Math.random() * 100 + "vw";
-                sparkle.style.top = Math.random() * 100 + "vh";
-                document.body.appendChild(sparkle);
-                setTimeout(() => sparkle.remove(), 2000);
-            }, 300);
+            for (let i = 0; i < heartCount; i++) {
+                const angle = (i / heartCount) * 2 * Math.PI;
+                const x = radius * Math.cos(angle);
+                const y = radius * Math.sin(angle);
+                const heart = document.createElement("span");
+                heart.classList.add("heart", "circle-heart");
+                heart.innerHTML = "💖";
+                heart.style.left = `${centerX}px`;
+                heart.style.top = `${centerY}px`;
+                heart.style.setProperty("--x", `${x}px`);
+                heart.style.setProperty("--y", `${y}px`);
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.classList.remove("circle-heart");
+                    heart.classList.add("merge-heart");
+                }, 3000);
+
+                setTimeout(() => heart.remove(), 4000);
+            }
+
+            setTimeout(() => {
+                const finalHeart = document.createElement("span");
+                finalHeart.classList.add("final-heart");
+                finalHeart.innerHTML = "💖";
+                document.body.appendChild(finalHeart);
+            }, 4000);
         }
     </script>
 </body>
