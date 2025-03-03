@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for My Babe</title>
+    <title>Surprise for My Cutie 💕</title>
     <style>
         body {
-            background: linear-gradient(to bottom, #ffcccc, #ffb3b3);
+            background: linear-gradient(135deg, #ffe6f2, #ffb3d9, #cc99ff);
             font-family: 'Comic Sans MS', cursive, sans-serif;
             display: flex;
             justify-content: center;
@@ -14,97 +14,143 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            position: relative;
         }
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(255, 153, 204, 0.5);
+            border: 2px solid #ff99cc;
         }
         h1 {
-            color: #ff4d4d;
-            font-size: 36px;
+            color: #ff3399;
+            font-size: 40px;
+            text-shadow: 2px 2px #ffd9e6;
         }
         p {
-            color: #333;
-            font-size: 20px;
+            color: #660033;
+            font-size: 24px;
+            margin: 15px 0;
         }
         button {
-            background-color: #ff6666;
+            background: #ff66b3;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 10px;
+            border: 2px solid #ff3399;
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 15px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            transition: transform 0.2s;
         }
         button:hover {
-            background-color: #ff3333;
+            background: #ff3399;
+            transform: scale(1.1);
         }
         .heart {
             position: absolute;
-            font-size: 30px;
-            color: #ff1a1a;
-            animation: float 3s infinite;
+            font-size: 35px;
+            color: #ff1a8c;
+            animation: float 4s ease-in-out infinite;
+        }
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            color: #ffccff;
+            animation: twinkle 2s infinite;
         }
         @keyframes float {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-50vh) rotate(180deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
         #surprise {
             display: none;
-            font-size: 48px;
-            color: #ff1a1a;
-            animation: pulse 1s infinite;
+            font-size: 60px;
+            color: #ff0066;
+            text-shadow: 3px 3px #ffccff;
+            animation: bounce 1s infinite;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
+    <div class="overlay"></div>
     <div class="container" id="quiz">
-        <h1>Hey Cutie! 💕</h1>
+        <h1>Hey, My Sweetie! 🌸</h1>
         <p id="question">Do you know how much I love you?</p>
-        <button onclick="nextQuestion(1)">Yes!</button>
-        <button onclick="nextQuestion(1)">Of course!</button>
+        <button onclick="nextQuestion()">Yes, babe! 💕</button>
+        <button onclick="nextQuestion()">Totally! 😘</button>
     </div>
     <div class="container" id="surprise">
-        <p>I LOVE YOU, BABE! 💖</p>
+        <p>I LOVE YOU SO MUCH ARSU 💖✨</p>
     </div>
 
     <script>
         let step = 1;
         const questions = [
             "Do you know how much I love you?",
-            "Will you be my forever cutie?",
-            "Ready for a surprise?"
+            "Do you know that you’re my favorite?",
+            "Can you be mine forever?",
+            "Will you forgive me if I did something wrong?",
+            "Who do you think I like the most?"
         ];
 
         function nextQuestion() {
-            if (step < questions.length) {
+            if (step < questions.length - 1) {
                 document.getElementById("question").innerText = questions[step];
+                step++;
+            } else if (step === questions.length - 1) {
+                document.getElementById("question").innerText = questions[step];
+                document.getElementsByTagName("button")[0].innerText = "Me! 💖";
+                document.getElementsByTagName("button")[1].innerText = "Me me! 😍";
                 step++;
             } else {
                 document.getElementById("quiz").style.display = "none";
                 document.getElementById("surprise").style.display = "block";
-                startHearts();
+                startEffects();
             }
         }
 
-        function startHearts() {
+        function startEffects() {
+            // Floating hearts
             setInterval(() => {
                 const heart = document.createElement("span");
                 heart.classList.add("heart");
                 heart.innerHTML = "💖";
                 heart.style.left = Math.random() * 100 + "vw";
                 document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 3000);
-            }, 200);
+                setTimeout(() => heart.remove(), 4000);
+            }, 150);
+
+            // Sparkles
+            setInterval(() => {
+                const sparkle = document.createElement("span");
+                sparkle.classList.add("sparkle");
+                sparkle.innerHTML = "✨";
+                sparkle.style.left = Math.random() * 100 + "vw";
+                sparkle.style.top = Math.random() * 100 + "vh";
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 2000);
+            }, 300);
         }
     </script>
 </body>
